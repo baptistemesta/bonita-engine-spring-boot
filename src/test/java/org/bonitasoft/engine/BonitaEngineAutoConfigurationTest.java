@@ -14,13 +14,9 @@ public class BonitaEngineAutoConfigurationTest {
     private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
             .withConfiguration(AutoConfigurations.of(BonitaEngineAutoConfiguration.class));
 
-
     @Test
     @Ignore
     public void should_create_engine() {
-        this.contextRunner
-                .run((context) -> {
-                    assertThat(context).hasSingleBean(BonitaEngine.class);
-                });
+        this.contextRunner.run((context) -> assertThat(context).hasSingleBean(BonitaEngine.class));
     }
 }

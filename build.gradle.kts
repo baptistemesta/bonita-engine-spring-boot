@@ -15,28 +15,27 @@ version = "0.0.1"
 val bonitaBundle by configurations.creating
 
 dependencies {
-    api("org.bonitasoft.engine:bonita-client:7.9.0.W14-03")
-    api("org.bonitasoft.engine:bonita-common:7.9.0.W14-03")
-    api("org.bonitasoft.engine:bonita-server:7.9.0.W14-03")
-    api("org.bonitasoft.engine:bonita-test-api:7.9.0.W14-03")
-    api("org.bonitasoft.platform:platform-setup:7.9.0.W14-03")
-    api("org.springframework.boot:spring-boot-starter:2.1.4.RELEASE")
-    api("org.springframework.boot:spring-boot-starter-data-rest:2.1.4.RELEASE")
-    //should not depend on the DSL: interface of process should be in an other module
-    implementation("org.bonitasoft.engine.dsl:process-kotlin-dsl:0.0.1")
+    val springBootVersion = "2.1.4.RELEASE"
+    val engineVersion = "7.9.0-SNAPSHOT"
+
+//    api("org.bonitasoft.engine:bonita-client:${engineVersion}")
+    api("org.bonitasoft.engine:bonita-common:${engineVersion}")
+    api("org.bonitasoft.engine:bonita-server:${engineVersion}")
+    api("org.bonitasoft.engine:bonita-test-api:${engineVersion}")
+    api("org.bonitasoft.platform:platform-setup:${engineVersion}")
+    api("org.springframework.boot:spring-boot-starter:$springBootVersion")
+    api("org.springframework.boot:spring-boot-starter-data-rest:$springBootVersion")
     implementation("org.slf4j:slf4j-api:1.7.26")
 
 
-    bonitaBundle("org.bonitasoft.distrib:bundle-tomcat:7.9.0.W12@zip")
+    bonitaBundle("org.bonitasoft.distrib:bundle-tomcat:${engineVersion}@zip")
 
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.1.4.RELEASE")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:$springBootVersion")
 
-    testImplementation("org.springframework.boot:spring-boot-test:2.1.4.RELEASE")
+    testImplementation("org.springframework.boot:spring-boot-test:$springBootVersion")
     testImplementation("junit:junit:4.12")
     testImplementation("org.assertj:assertj-core:3.12.2")
 }
-
-
 
 tasks.create("extractBonitaBundle", Copy::class) {
     from(zipTree(bonitaBundle.resolvedConfiguration.resolvedArtifacts.first().file)) {
