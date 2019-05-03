@@ -1,6 +1,5 @@
 package org.bonitasoft.engine.spring;
 
-
 import org.bonitasoft.engine.api.APIClient;
 import org.bonitasoft.engine.api.internal.servlet.HttpAPIServlet;
 import org.bonitasoft.engine.test.TestEngine;
@@ -14,12 +13,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan
-@ConditionalOnClass({ TestEngine.class })
+@ConditionalOnClass({TestEngine.class})
 @EnableConfigurationProperties(BonitaEngineProperties.class)
 public class BonitaEngineAutoConfiguration {
 
     @Bean
-    TestEngine testEngine(BonitaEngineProperties properties) {
+    TestEngine testEngine() {
         TestEngine instance = TestEngineImpl.getInstance();
         instance.setDropOnStart(false);
         instance.setDropOnStop(false);
@@ -30,7 +29,6 @@ public class BonitaEngineAutoConfiguration {
     APIClient apiAccessor() {
         return new APIClient();
     }
-
 
     @Bean
     public ServletRegistrationBean bonitaEngineHttpServlet() {
